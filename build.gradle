@@ -4,16 +4,23 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'idea'
+apply plugin: 'spring-boot'
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': 1.0,
-                'Main-Class': 'my.raspberry.myled.ApplicationObject'
+jar {
+    baseName = 'spring-boot-scala-web'
+    version =  '0.1.5'
+}
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.0.RELEASE'
     }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 repositories {
@@ -25,4 +32,3 @@ dependencies {
     compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.8'
     compile group: 'com.pi4j', name: 'pi4j-core', version: '1.1'
 }
-
