@@ -9,12 +9,12 @@ object LightController {
   private val pinController: GpioController = GpioFactory.getInstance()
   private val pin = pinController.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLED", PinState.LOW)
 
-  @RequestMapping("/")
+  @RequestMapping(Array("/"))
   def init(): String = {
     "LED Light !!!!"
   }
 
-  @RequestMapping("/toggle")
+  @RequestMapping(Array("/toggle"))
   def toggle(): String = {
     pin.toggle()
     "Toggled !!"
