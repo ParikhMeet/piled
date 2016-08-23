@@ -1,0 +1,28 @@
+group 'piled'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': 1.0,
+                'Main-Class': 'my.raspberry.myled.ApplicationObject'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.4.0.RELEASE'
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.8'
+    compile group: 'com.pi4j', name: 'pi4j-core', version: '1.1'
+}
+
